@@ -5,6 +5,8 @@ sol_base3 = #fdf6e3
 sol_yellow = #b58900
 sol_magenta = #d33682
 sol_violet = #6c71c4
+sol_blue = #268bd2
+sol_cyan = #2aa198
 
 *
   margin 0
@@ -17,14 +19,20 @@ p, h1, h2, h3, h4, h5, h6, hr, ul, ol, li, pre, blockquote
 hr
   margin 10px
 
-h1, h2, h3, h4, h5, h6
+h1, h4
+  color sol_violet
+
+h2, h5
+  color sol_magenta
+
+h3, h6
   color sol_yellow
 
 a
-  color sol_violet
+  color sol_blue
 
 a:visited
-  color sol_magenta
+  color sol_cyan
 
 blockquote
   padding-left 20px
