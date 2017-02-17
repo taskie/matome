@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="mtm_left">
+            <textarea id="mtm_input"><%= input %></textarea>
+        </div>
+        <div class="mtm_right">
+            <div id="mtm_output"><%- output %></div>
+        </div>
+        <input type="hidden" id="mtm_ws_server" name="mtm_ws_server" value="<%= ws_server %>" />
+        <script src="matome_client.js" type="text/javascript"></script>
+    </body>
+</html>

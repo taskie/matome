@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "outDir": "./build/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "es2015",
+        "target": "es2015",
+        "jsx": "react"
+    },
+    "files": [
+        "./src/server.tsx",
+        "./src/client.tsx"
+    ]
+}

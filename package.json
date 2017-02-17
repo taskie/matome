@@ -1,0 +1,48 @@
+{
+  "name": "matome",
+  "version": "0.0.1",
+  "description": "whiteboard for me (or us?)",
+  "main": "tmp/main.bundle.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:taskie/matome.git"
+  },
+  "author": "taskie <t@skie.jp> (https://www.alprosys.com/)",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@types/del": "^2.2.32",
+    "@types/ejs": "^2.3.33",
+    "@types/glob": "^5.0.30",
+    "@types/marked": "0.0.28",
+    "@types/mkdirp": "^0.3.29",
+    "@types/node": "^7.0.5",
+    "@types/react": "^15.0.10",
+    "@types/react-dom": "^0.14.23",
+    "@types/websocket": "0.0.32",
+    "ejs-compiled-loader": "^1.1.0",
+    "stylus": "^0.54.5",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.6",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "@types/koa": "^2.0.37",
+    "@types/koa-router": "^7.0.21",
+    "@types/koa-static": "^2.0.22",
+    "del": "^2.2.2",
+    "ejs": "^2.5.5",
+    "glob": "^7.1.1",
+    "koa": "^2.0.0",
+    "koa-router": "^7.0.1",
+    "koa-static": "^3.0.0",
+    "mkdirp": "^0.5.1",
+    "nodegit": "^0.17.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-marked": "^0.3.1",
+    "websocket": "^1.0.24"
+  }
+}

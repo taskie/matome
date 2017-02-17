@@ -1,0 +1,14 @@
+node_modules
+
+build
+tmp
+
+*.mk
+
+logs
+*.log
+npm-debug.log*
+
+pids
+*.pid
+*.seed
