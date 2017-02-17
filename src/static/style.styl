@@ -1,9 +1,37 @@
+sol_base03 = #002b36
+sol_base00 = #657b83
+sol_base0 = #839496
+sol_base3 = #fdf6e3
+sol_yellow = #b58900
+sol_magenta = #d33682
+sol_violet = #6c71c4
+
 *
   margin 0
   padding 0
 
+p, h1, h2, h3, h4, h5, h6, hr, ul, ol, li, pre, blockquote
+  margin 10px
+  line-height 150%
+
+hr
+  margin 10px
+
+h1, h2, h3, h4, h5, h6
+  color sol_yellow
+
+a
+  color sol_violet
+
+a:visited
+  color sol_magenta
+
+blockquote
+  padding-left 20px
+
 .mtm_left
   position absolute
+  box-sizing: border-box
   width 50%
   height 100%
   left 0
@@ -11,6 +39,7 @@
 
 .mtm_right
   position absolute
+  box-sizing: border-box
   width 50%
   height 100%
   right 0
@@ -18,17 +47,23 @@
 
 #mtm_input
   position relative
+  box-sizing: border-box
   display block
   width 100%
   height 100%
   box-sizing border-box
   outline 0
   resize none
-  background-color #ffe
+  background-color sol_base03
+  color sol_base0
+  padding 20px
 
 #mtm_output
   position relative
+  box-sizing: border-box
   width 100%
   height 100%
   overflow scroll
-  background-color #fef
+  background-color sol_base3
+  color sol_base00
+  padding 20px

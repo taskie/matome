@@ -21,7 +21,7 @@ const rejectUnderscore = (pathstr) => {
 
 const src_styl = glob.sync(src + "/**/*.styl");
 const src_css = glob.sync(src + "/**/*.css");
-const styl_re = new RegExp(`^${src}/(.+?)\.styl$`);
+const styl_re = new RegExp(`^${src}/(.+?)\.(?:styl|css)$`);
 const dst_css = [...src_styl, ...src_css].filter(rejectUnderscore).map(s => s.replace(styl_re, `${dst}/$1.css`));
 
 // generate vars.mk

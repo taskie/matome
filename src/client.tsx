@@ -54,6 +54,7 @@ class MatomeClientApplication {
                     const oldSelectionStart = this._input.selectionStart;
                     this._input.value = markdown;
                     this._input.selectionStart = oldSelectionStart;
+                    this._input.selectionEnd = oldSelectionStart;
                 }
                 this._renderOutput();
                 break;
