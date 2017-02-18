@@ -1,8 +1,8 @@
-// import { typed as promisify } from "../commons/ts-promisify";
+import { typed as promisify } from "../commons/ts-promisify";
 
 import * as path from "path";
 import * as http from "http";
-const http2 = require("http2");
+import * as https from "https";
 import * as fs from "fs";
 
 import * as React from "react";
@@ -49,7 +49,7 @@ export class Server extends EventEmitter {
                 key: fs.readFileSync(this._conf.server.ssl.key),
                 cert: fs.readFileSync(this._conf.server.ssl.cert),
              };
-            this.httpServer = http2.createServer(ssl, this.httpHandler) as any;
+            this.httpServer = https.createServer(ssl, this.httpHandler) as any;  // force
         } else {
             this.httpURL = `http://${this._conf.server.target.host}:${this._conf.server.target.port}/`;
             this.wsURL = `ws://${this._conf.server.target.host}:${this._conf.server.target.port}/`;
