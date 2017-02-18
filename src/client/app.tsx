@@ -28,8 +28,12 @@ export class Application {
     }
 
     private _initWebSocket() {
-        const ws_server = (document.getElementById("mtm_ws_server") as HTMLInputElement).value;
-
+        const ws_server_re = new RegExp("^http(s?)://([^/]+).*");
+        const result = ws_server_re.exec(window.location.href);
+        const ws_server_secure = result[1];
+        const ws_server_host = result[2];
+        const ws_server = `ws${ws_server_secure}://${ws_server_host}`;
+        console.log(ws_server);
         const ws = new WebSocket(ws_server);
         this._ws = ws;
 
