@@ -2,8 +2,7 @@
 
 import * as path from "path";
 import * as http from "http";
-// const http2 = require("http2");
-const http2 = require("https");
+const http2 = require("http2");
 import * as fs from "fs";
 
 import * as React from "react";
