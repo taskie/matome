@@ -3,6 +3,7 @@
 import * as path from "path";
 import * as http from "http";
 // const http2 = require("http2");
+const http2 = require("https");
 import * as fs from "fs";
 
 import * as React from "react";
@@ -42,12 +43,14 @@ export class Server extends EventEmitter {
     }
 
     private _initHTTPServer() {
-        if (false && this._conf.server.ssl != null) {
-            /*
+        if (this._conf.server.ssl != null) {
             this.httpURL = `https://${this._conf.server.target.host}:${this._conf.server.target.port}/`;
             this.wsURL = `wss://${this._conf.server.target.host}:${this._conf.server.target.port}/`;
-            this.httpServer = http2.createServer(this._conf.server.ssl, this.httpHandler) as any;
-            */
+            const ssl = {
+                key: fs.readFileSync(this._conf.server.ssl.key),
+                cert: fs.readFileSync(this._conf.server.ssl.cert),
+             };
+            this.httpServer = http2.createServer(ssl, this.httpHandler) as any;
         } else {
             this.httpURL = `http://${this._conf.server.target.host}:${this._conf.server.target.port}/`;
             this.wsURL = `ws://${this._conf.server.target.host}:${this._conf.server.target.port}/`;
