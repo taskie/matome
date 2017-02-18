@@ -25,6 +25,12 @@ module.exports = {
                 use: [
                     {loader: 'ejs-compiled-loader?htmlmin'}
                 ]
+            },
+            {
+                test: /\.json$/,
+                use: [
+                    {loader: 'json-loader'}
+                ]
             }
         ]
     }

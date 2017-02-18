@@ -2,7 +2,7 @@
 
 v0.0.1-beta
 
-the world is a whiteboard
+The world is a whiteboard. Draw and erase as you like.
 
 ## using
 

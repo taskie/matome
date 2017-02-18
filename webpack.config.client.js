@@ -20,9 +20,9 @@ module.exports = {
                 ]
             },
             {
-                test: /\.ejs$/,
+                test: /\.json$/,
                 use: [
-                    {loader: 'ejs-compiled-loader?htmlmin'}
+                    {loader: 'json-loader'}
                 ]
             }
         ]
