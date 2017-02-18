@@ -1,13 +1,14 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { MarkdownOutputComponent } from "../components/MarkdownOutputComponent";
+import { CodeInputComponent } from "../components/CodeInputComponent";
 import { Message, MarkdownValue, ConnectionIdValue } from "../messages/all";
 
 export class Application {
     private _ws: WebSocket;
     private _connectionId: string;
     private _serverId: string;
-    private _input: HTMLTextAreaElement;
+    private _input: HTMLDivElement;
     private _output: HTMLDivElement;
     private _markdown: string;
     private _inputTimer: any;
@@ -15,13 +16,14 @@ export class Application {
     run() {
         this._initWebSocket();
 
-        const input = document.getElementById("mtm_input") as HTMLTextAreaElement;
+        const input = document.getElementById("mtm_input") as HTMLDivElement;
         this._input = input;
-        this._markdown = input.value;
-        input.addEventListener("keydown", this._inputOnKeydown.bind(this), false);
+        this._markdown = (document.querySelector(".ReactCodeMirror > textarea") as HTMLTextAreaElement).value;
 
         const output = document.getElementById("mtm_output") as HTMLDivElement;
         this._output = output;
+
+        this._renderInput();
         this._renderOutput();
     }
 
@@ -53,10 +55,7 @@ export class Application {
                 const { markdown } = value as MarkdownValue;
                 if (from !== this._connectionId) {
                     this._markdown = markdown;
-                    const oldSelectionStart = this._input.selectionStart;
-                    this._input.value = markdown;
-                    this._input.selectionStart = oldSelectionStart;
-                    this._input.selectionEnd = oldSelectionStart;
+                    this._renderInput();
                 }
                 this._renderOutput();
                 break;
@@ -95,11 +94,17 @@ export class Application {
 
     private _sendText() {
         if (this._connectionId == null) { return; }
-        this._markdown = this._input.value;
         let value = { markdown: this._markdown } as MarkdownValue;
         this._ws.send(JSON.stringify({ type: "markdown", from: this._connectionId, value } as Message));
         console.log("WebSocket send message");
         return true;
+    }
+
+    private _renderInput() {
+        ReactDOM.render(<CodeInputComponent code={this._markdown} onChange={(code: string) => {
+            this._markdown = code;
+            this._sendText();
+        }} />, this._input);
     }
 
     private _renderOutput() {

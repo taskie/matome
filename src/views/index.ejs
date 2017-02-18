@@ -2,12 +2,14 @@
 <html lang="ja">
     <head>
         <title><%= title %></title>
+        <link rel="stylesheet" href="solarized-light-hljs.css" />
+        <link rel="stylesheet" href="codemirror.css" />
+        <link rel="stylesheet" href="solarized-codemirror.css" />
         <link rel="stylesheet" href="style.css" />
-        <link rel="stylesheet" href="solarized-light.css" />
     </head>
     <body>
         <div class="mtm_left">
-            <textarea id="mtm_input"><%= input %></textarea>
+            <div id="mtm_input"><%- input %></div>
         </div>
         <div class="mtm_right">
             <div id="mtm_output"><%- output %></div>

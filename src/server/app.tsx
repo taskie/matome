@@ -8,6 +8,7 @@ import * as fs from "fs";
 import * as React from "react";
 import { renderToString } from "react-dom/server";
 import { MarkdownOutputComponent } from "../components/MarkdownOutputComponent";
+import { CodeInputComponent } from "../components/CodeInputComponent";
 
 import * as Koa from "koa";
 import * as KoaRouter from "koa-router";
@@ -136,7 +137,7 @@ export class Application {
         router.get("/", async (ctx: KoaRouter.IRouterContext, next: () => Promise<any>) => {
             let data = {
                 title: "matome",
-                input: this.markdown,
+                input: renderToString(<CodeInputComponent code={this.markdown} />),
                 output: renderToString(<MarkdownOutputComponent markdown={this.markdown} />),
                 ws_server: this.server.wsURL
             }

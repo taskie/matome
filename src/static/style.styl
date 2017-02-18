@@ -1,6 +1,8 @@
 sol_base03 = #002b36
+sol_base01 = #586e75
 sol_base00 = #657b83
 sol_base0 = #839496
+sol_base1 = #93a1a1
 sol_base3 = #fdf6e3
 sol_yellow = #b58900
 sol_magenta = #d33682
@@ -13,11 +15,11 @@ sol_cyan = #2aa198
   padding 0
 
 p, h1, h2, h3, h4, h5, h6, hr, ul, ol, li, pre, blockquote
-  margin 10px
+  margin 20px
   line-height 150%
 
 hr
-  margin 10px
+  margin 20px
 
 h1, h2, h3, h4, h5, h6
   margin-top 20px
@@ -60,7 +62,9 @@ a:visited
   color sol_cyan
 
 blockquote
-  padding-left 20px
+  border-left sol_base1 solid 10px
+  color sol_base1
+  padding-left 10px
 
 .mtm_left
   position absolute
@@ -89,7 +93,6 @@ blockquote
   resize none
   background-color sol_base03
   color sol_base0
-  padding 20px
 
 #mtm_output
   position relative
@@ -100,3 +103,11 @@ blockquote
   background-color sol_base3
   color sol_base00
   padding 20px
+
+.ReactCodeMirror
+  height 100%
+  box-sizing: border-box
+
+.CodeMirror
+  height 100%
+  box-sizing: border-box
