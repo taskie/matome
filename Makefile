@@ -2,12 +2,6 @@
 
 all: js css static
 
-server_test: all
-	@mkdir -p tmp
-	rsync -rvP build/ tmp
-	touch tmp/data.txt
-	sh -c "cd tmp; node matome_server.js localhost 3024 5001"
-
 include vars.mk
 
 clean:
@@ -38,3 +32,20 @@ $(DST)/%.css: $(SRC)/%.styl
 
 $(DST)/%.css: $(SRC)/%.css
 	cp $< $@
+
+server_test: all server_test_ssl
+	@mkdir -p tmp
+	rsync -rvP build/ tmp
+	touch tmp/data.txt
+	sh -c "cd tmp; node matome_server.js conf.json"
+
+server_test_ssl: tmp/server.crt
+
+tmp/server.key:
+	openssl genrsa 2048 > $@
+
+tmp/server.csr: tmp/server.key
+	openssl req -new -sha256 -key $< -out $@
+
+tmp/server.crt: tmp/server.csr
+	openssl x509 -in $< -out $@ -req -signkey tmp/server.key -sha256 -days 3650

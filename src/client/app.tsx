@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { MarkdownOutputComponent } from "./components/MarkdownOutputComponent";
-import { Message, MarkdownValue, ConnectionIdValue } from "./messages/Message";
+import { MarkdownOutputComponent } from "../components/MarkdownOutputComponent";
+import { Message, MarkdownValue, ConnectionIdValue } from "../messages/all";
 
-class MatomeClientApplication {
+export class Application {
     private _ws: WebSocket;
     private _connectionId: string;
     private _serverId: string;
@@ -106,8 +106,3 @@ class MatomeClientApplication {
         ReactDOM.render(<MarkdownOutputComponent markdown={this._markdown} />, this._output);
     }
 }
-
-document.addEventListener("DOMContentLoaded", (ev) => {
-    const client = new MatomeClientApplication();
-    client.run();
-});

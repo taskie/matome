@@ -2,7 +2,7 @@ const webpack = require("webpack");
 
 module.exports = {
     entry: {
-        "static/matome_client": "./src/client.tsx"
+        "static/matome_client": "./src/client_main.ts"
     },
     output: {
         filename: "./build/[name].js"

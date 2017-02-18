@@ -8,7 +8,7 @@
         "jsx": "react"
     },
     "files": [
-        "./src/server.tsx",
-        "./src/client.tsx"
+        "src/server_main.ts",
+        "src/client_main.ts"
     ]
 }

@@ -2,7 +2,7 @@ const webpack = require("webpack");
 
 module.exports = {
     entry: {
-        matome_server: "./src/server.tsx"
+        matome_server: "./src/server_main.ts"
     },
     target: "node",
     output: {
