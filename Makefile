@@ -1,13 +1,19 @@
 .PHONY: all clean clobber reload js css static
 
 all: js css static
-	sh -c "cd build; node matome_server.js localhost 3024 5001"
+
+server_test: all
+	@mkdir -p tmp
+	rsync -rvP build/ tmp
+	touch tmp/data.txt
+	sh -c "cd tmp; node matome_server.js localhost 3024 5001"
 
 include vars.mk
 
 clean:
+	-rm -rf tmp/
 
-clobber:
+clobber: clean
 	-rm -rf build/
 
 vars.mk: vars.js

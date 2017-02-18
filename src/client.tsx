@@ -1,10 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { MarkdownOutput } from "./lib/MarkdownOutput";
+import { MarkdownOutputComponent } from "./components/MarkdownOutputComponent";
+import { Message, MarkdownValue, ConnectionIdValue } from "./messages/Message";
 
 class MatomeClientApplication {
     private _ws: WebSocket;
     private _connectionId: string;
+    private _serverId: string;
     private _input: HTMLTextAreaElement;
     private _output: HTMLDivElement;
     private _markdown: string;
@@ -45,10 +47,10 @@ class MatomeClientApplication {
 
     private _wsOnMessage(mes: MessageEvent) {
         console.log("WebSocket message: " + mes.data);
-        const { type, value } = JSON.parse(mes.data);
+        const { type, value, from } = JSON.parse(mes.data) as Message;
         switch (type) {
             case "markdown":
-                const { markdown, from } = value;
+                const { markdown } = value as MarkdownValue;
                 if (from !== this._connectionId) {
                     this._markdown = markdown;
                     const oldSelectionStart = this._input.selectionStart;
@@ -58,8 +60,9 @@ class MatomeClientApplication {
                 }
                 this._renderOutput();
                 break;
-            case "connection_id":
-                this._connectionId = value;
+            case "connectionid":
+                this._connectionId = (value as ConnectionIdValue).connectionId;
+                this._serverId = from;
                 break;
         }
     }
@@ -93,13 +96,14 @@ class MatomeClientApplication {
     private _sendText() {
         if (this._connectionId == null) { return; }
         this._markdown = this._input.value;
-        this._ws.send(JSON.stringify({ type: "markdown", value: { markdown: this._markdown, from: this._connectionId } }));
+        let value = { markdown: this._markdown } as MarkdownValue;
+        this._ws.send(JSON.stringify({ type: "markdown", from: this._connectionId, value } as Message));
         console.log("WebSocket send message");
         return true;
     }
 
     private _renderOutput() {
-        ReactDOM.render(<MarkdownOutput markdown={this._markdown} />, this._output);
+        ReactDOM.render(<MarkdownOutputComponent markdown={this._markdown} />, this._output);
     }
 }
 

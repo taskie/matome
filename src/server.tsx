@@ -4,15 +4,18 @@ import * as fs from "fs";
 
 import * as React from "react";
 import { renderToString } from "react-dom/server";
-import { MarkdownOutput } from "./lib/MarkdownOutput";
+import { MarkdownOutputComponent } from "./components/MarkdownOutputComponent";
 
 import * as Koa from "koa";
 import * as KoaRouter from "koa-router";
 import * as koaStatic from "koa-static";
 import * as websocket from "websocket";
+import * as uuid from "uuid";
 const WebSocketServer = websocket.server;
 
 import * as ejs from "ejs";
+
+import { Message, MarkdownValue, ConnectionIdValue } from "./messages/Message";
 
 const server_name = process.argv[2];
 const port_koa = parseInt(process.argv[3]);
@@ -37,14 +40,14 @@ router.get("/", async (ctx: KoaRouter.IRouterContext, next: () => Promise<any>) 
     let data = {
         title: "matome",
         input: markdown,
-        output: renderToString(<MarkdownOutput markdown={markdown} />),
+        output: renderToString(<MarkdownOutputComponent markdown={markdown} />),
         ws_server
     }
     ctx.body = templates.index(data);
     await next();
 });
 
-router.get("*", koaStatic("./static/"));
+router.get("*", koaStatic("static/"));
 app.use(router.routes());
 app.use(router.allowedMethods());
 
@@ -69,8 +72,8 @@ function originIsAllowed(origin: string) {
     return true;
 }
 
-let connectionNumber = 0;
 let connections = {} as {[_: string]: websocket.connection};
+let serverUUID = uuid.v4();
 
 ws.on('request', function (request) {
     if (!originIsAllowed(request.origin)) {
@@ -81,18 +84,17 @@ ws.on('request', function (request) {
 
     var connection = request.accept();
     console.log((new Date()) + ' Connection accepted.');
-    const connectionId = `${connectionNumber}:${(new Date()).getTime()}`;
-    connectionNumber++;
+    const connectionId = uuid.v4();
     connections[connectionId] = connection;
-    connection.sendUTF(JSON.stringify({type: "connection_id", value: connectionId}));
+    connection.sendUTF(JSON.stringify({type: "connectionid", value: {connectionId} as ConnectionIdValue, from: serverUUID}));
 
     connection.on('message', function (message) {
         if (message.type === 'utf8') {
             console.log('Received Message: ' + message.utf8Data);
-            let { type, value } = JSON.parse(message.utf8Data);
+            let { type, value, from } = JSON.parse(message.utf8Data) as Message;
             switch (type) {
                 case "markdown":
-                    const { markdown: markdown_new, from } = value;
+                    const { markdown: markdown_new } = value as MarkdownValue;
                     markdown = markdown_new;
                     ws.broadcastUTF(message.utf8Data);
                     break;
